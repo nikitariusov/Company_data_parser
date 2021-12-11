@@ -37,13 +37,17 @@ def pars_info(html_data):
             dict_value.append(phone)
 
             categorys_card = card.find('ul', class_="ui-list-mark")
-            categorys = categorys_card.find_all('a')
+            if categorys_card:
+                categorys = categorys_card.find_all('a')
 
-            category = []
-            for i in categorys:
-                content = i.text
-                category.append(content)
+                category = []
+                for i in categorys:
+                    content = i.text
+                    category.append(content)
+            else:
+                category = None
             dict_value.append(category)
+
 
             n = 0
             for key in dict_keys:

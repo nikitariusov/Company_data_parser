@@ -1,5 +1,5 @@
 from openpyxl import Workbook
-
+from colorama import init, Fore
 
 def recording_on_file(data):
 
@@ -28,12 +28,13 @@ def recording_on_file(data):
             ws1[f'D{row}'] = company_data['Телефон'].strip()
 
         content = ''
-        for info in company_data['Вид деятельности']:
-            content += f'{info}, '
-        ws1[f'E{row}'] = content
-        row += 1
+        if company_data['Вид деятельности']:
+            for info in company_data['Вид деятельности']:
+                content += f'{info}, '
+            ws1[f'E{row}'] = content
+            row += 1
 
     wb.save(filename=file_name)
-    print(f'\nОбработка завершена. Сохранен файл {file_name}.')
+    print(Fore.GREEN + f'\nОбработка завершена. Сохранен файл {file_name}.')
 
 

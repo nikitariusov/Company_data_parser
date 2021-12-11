@@ -4,7 +4,7 @@
 Парсинг происходит с сайта https://www.ua-region.com.ua/.
 _________________________________________________
 
-Рериз (v.1.0):
+Релиз (v.1.0):
 1. Получить ссылку через браузер или использовать все ссылки что внесены в базу;
 2. Переход по каждой ссылке;
 3. Сбор информации со страницы списка организаций:
@@ -27,8 +27,10 @@ from Request import get_response, get_html
 from Pars import pars_info, pages
 from Browse import link_selection
 from Recording import recording_on_file
+from colorama import init, Fore
 import time
 
+init()
 URL = 'https://www.ua-region.com.ua/ru/biznes-katalog'
 HOST = 'https://www.ua-region.com.ua/'
 HEADERS = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -43,7 +45,7 @@ list_links = [selhoz, ]
 
 def script_execution_time():
     runtime = time.time() - start_time
-    print(f"[INFO] Время выполения: {'{0:.2f}'.format(runtime)}c.")
+    print(f"[INFO] Время выполнения: {'{0:.2f}'.format(runtime)}c.")
 
 
 def status_1():
@@ -88,7 +90,8 @@ def get_pagination(first_link):
 
 def main():
     global start_time
-    variant = user_selection()
+    #variant = user_selection()
+    variant = "2"
     all_links = []
     if variant == "1":
         start_time = time.time()
@@ -125,6 +128,7 @@ def main():
         start_time = time.time()
         link = link_selection(URL)
         #link = 'https://www.ua-region.com.ua/ru/kved/05.10'
+        print('[STATUS] Ждите, идет сбор кол-ва страниц...')
         paginations_links = get_pagination(link)
 
         all_data_base = []
