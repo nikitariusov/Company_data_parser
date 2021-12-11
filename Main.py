@@ -27,7 +27,7 @@ from Request import get_response, get_html
 from Pars import pars_info, pages
 from Browse import link_selection
 from Recording import recording_on_file
-from colorama import init, Fore
+from colorama import init
 import time
 
 init()
@@ -67,11 +67,15 @@ def get_pagination(first_link):
     pagination = pages(first_link, HEADERS)
 
     max_page_link = first_link + '?start_page=' + str(pagination)
-
+    #   print("[TEST] get_pagination(max_page_link): ", max_page_link)
     if pagination == 1:
-        return max_page_link
+        link_page = []
+        #   print("[TEST] get_pagination(IF == 1): ", max_page_link)
+        link_page.append(max_page_link)
+        return link_page
 
     else:
+        #   print("[TEST] get_pagination(else): ", max_page_link)
         check_pagination = pages(max_page_link, HEADERS)
         while pagination <= check_pagination:
             pagination = check_pagination
@@ -128,13 +132,13 @@ def main():
         start_time = time.time()
         link = link_selection(URL)
         #link = 'https://www.ua-region.com.ua/ru/kved/05.10'
-        print('[STATUS] Ждите, идет сбор кол-ва страниц...')
+        print('\t[STATUS] Ждите, идет сбор кол-ва страниц...')
         paginations_links = get_pagination(link)
 
         all_data_base = []
-
+        #   print("[TEST] pagination_links: ", paginations_links)
         for link in paginations_links:
-            #print('[INFO] Передана ссылка: ', link)
+            #   print('[TEST] Передана ссылка: ', link)
             response = get_response(link, HEADERS)
             html_data = get_html(response)
 

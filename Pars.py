@@ -60,6 +60,9 @@ def pars_info(html_data):
 
 
 def pages(link, HEADERS):
+
+    #   print("[TEST] pages(link): ", link)
+
     max_page = 1
 
     response = get_response(link, HEADERS)
@@ -70,9 +73,13 @@ def pages(link, HEADERS):
     paginations_class = soup.find('ul', class_='pagination')
     paginations = paginations_class.find_all('a', class_='item-link', text=True)
 
+    #   print("[TEST] pages(paginations): ", paginations)
+
     if not paginations:
+        #   print("[TEST] pages(if not max_page): ", max_page)
         return max_page
     else:
         max_page = int(paginations[-1].text)
+        #   print("[TEST] pages(max_page): ", max_page)
         return max_page
 
